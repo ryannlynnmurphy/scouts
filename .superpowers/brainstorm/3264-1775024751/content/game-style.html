@@ -1,0 +1,96 @@
+<h2>SCOUTS Game Overhaul -- Visual Style</h2>
+<p class="subtitle">What kind of animated game environment are you imagining?</p>
+
+<div class="cards">
+  <div class="card" data-choice="rpg-topdown" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1714;padding:24px;text-align:center;">
+      <div style="position:relative;width:280px;height:200px;margin:0 auto;background:#0d1a0d;border-radius:8px;overflow:hidden;">
+        <!-- Forest top-down view -->
+        <div style="position:absolute;top:10px;left:20px;width:30px;height:30px;background:#1a3a1a;border-radius:50%;"></div>
+        <div style="position:absolute;top:50px;right:30px;width:25px;height:25px;background:#1a3a1a;border-radius:50%;"></div>
+        <div style="position:absolute;top:80px;left:60px;width:35px;height:35px;background:#1a3a1a;border-radius:50%;"></div>
+        <div style="position:absolute;bottom:40px;right:60px;width:28px;height:28px;background:#1a3a1a;border-radius:50%;"></div>
+        <!-- Campfire -->
+        <div style="position:absolute;bottom:60px;left:50%;transform:translateX(-50%);width:16px;height:16px;background:#ff6633;border-radius:50%;box-shadow:0 0 20px #ff6633,0 0 40px #ff4400;"></div>
+        <!-- Characters as small sprites -->
+        <div style="position:absolute;bottom:80px;left:35%;width:12px;height:18px;background:#d4a0d0;border-radius:3px 3px 0 0;"></div>
+        <div style="position:absolute;bottom:40px;left:55%;width:12px;height:18px;background:#7eb8c9;border-radius:3px 3px 0 0;"></div>
+        <div style="position:absolute;bottom:50px;left:42%;width:12px;height:18px;background:#ff4444;border-radius:3px 3px 0 0;"></div>
+        <!-- Dialogue box -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.85);padding:8px 12px;font-family:Georgia,serif;font-size:10px;color:#f8f0e3;">
+          <span style="color:#ff4444;font-weight:bold;">BRENT:</span> Outdoor code. Now.
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>RPG Top-Down</h3>
+      <p>Explore the campsite from above. Walk between locations (campfire, cliff, woods). Characters are small sprites. Dialogue pops up when you interact. Think Undertale meets visual novel.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="side-scroll" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1714;padding:24px;text-align:center;">
+      <div style="position:relative;width:280px;height:200px;margin:0 auto;background:linear-gradient(180deg,#0a0a1a 0%,#1a1a0a 60%,#0d1a0d 100%);border-radius:8px;overflow:hidden;">
+        <!-- Trees silhouette -->
+        <div style="position:absolute;bottom:60px;left:10px;width:0;height:0;border-left:25px solid transparent;border-right:25px solid transparent;border-bottom:60px solid #0a1a0a;"></div>
+        <div style="position:absolute;bottom:60px;right:20px;width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:50px solid #0a1a0a;"></div>
+        <div style="position:absolute;bottom:60px;left:50%;width:0;height:0;border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:70px solid #0a1a0a;"></div>
+        <!-- Ground -->
+        <div style="position:absolute;bottom:0;left:0;right:0;height:60px;background:#1a2a1a;"></div>
+        <!-- Characters side view -->
+        <div style="position:absolute;bottom:60px;left:30%;width:20px;height:35px;background:#d4a0d0;border-radius:5px 5px 0 0;"></div>
+        <div style="position:absolute;bottom:60px;left:45%;width:22px;height:40px;background:#ff4444;border-radius:5px 5px 0 0;"></div>
+        <div style="position:absolute;bottom:60px;left:60%;width:20px;height:35px;background:#7eb8c9;border-radius:5px 5px 0 0;"></div>
+        <!-- Stars -->
+        <div style="position:absolute;top:15px;left:25%;width:2px;height:2px;background:#fff;border-radius:50%;"></div>
+        <div style="position:absolute;top:30px;right:35%;width:2px;height:2px;background:#fff;border-radius:50%;"></div>
+        <div style="position:absolute;top:10px;right:20%;width:3px;height:3px;background:#fff;border-radius:50%;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Side-Scrolling / Point-and-Click</h3>
+      <p>Walk left/right through forest environments. Characters are larger, more expressive. Click on characters/objects to interact. Think Night in the Woods or Oxenfree.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="vn-plus" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#1a1714;padding:24px;text-align:center;">
+      <div style="position:relative;width:280px;height:200px;margin:0 auto;background:linear-gradient(180deg,#0a0a1a 0%,#1a1714 100%);border-radius:8px;overflow:hidden;">
+        <!-- Background scene -->
+        <div style="position:absolute;top:0;left:0;right:0;bottom:60px;background:linear-gradient(180deg,#0a0a1a,#1a2a1a);"></div>
+        <!-- Character portraits large -->
+        <div style="position:absolute;bottom:60px;left:10%;width:70px;height:120px;background:linear-gradient(180deg,#d4a0d0,#a070a0);border-radius:8px 8px 0 0;opacity:0.9;"></div>
+        <div style="position:absolute;bottom:60px;right:10%;width:70px;height:130px;background:linear-gradient(180deg,#ff4444,#aa2222);border-radius:8px 8px 0 0;"></div>
+        <!-- Dialogue box with portrait -->
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.9);padding:8px;display:flex;gap:8px;align-items:flex-start;">
+          <div style="width:30px;height:30px;background:#ff4444;border-radius:4px;flex-shrink:0;"></div>
+          <div style="font-family:Georgia,serif;font-size:10px;color:#f8f0e3;">
+            <div style="color:#ff4444;font-weight:bold;font-size:9px;">BRENT</div>
+            You know what your problem is?
+          </div>
+        </div>
+        <!-- Inventory bar -->
+        <div style="position:absolute;top:8px;right:8px;display:flex;gap:4px;">
+          <div style="width:20px;height:20px;background:rgba(255,255,255,0.1);border:1px solid #333;border-radius:3px;"></div>
+          <div style="width:20px;height:20px;background:rgba(255,255,255,0.1);border:1px solid #333;border-radius:3px;"></div>
+          <div style="width:20px;height:20px;background:rgba(255,255,255,0.1);border:1px solid #333;border-radius:3px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Enhanced Visual Novel</h3>
+      <p>Full character portraits with expressions, animated scene backgrounds (campfire flicker, wind in trees), inventory system, decision tree UI. Think Ace Attorney meets Doki Doki Literature Club. More cinematic than the current text-only version.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top:24px;padding:16px;border:1px solid #333;border-radius:8px;">
+  <h3>What you said you wanted:</h3>
+  <ul style="color:#999;font-size:14px;">
+    <li>Animated game environment</li>
+    <li>Inventory system</li>
+    <li>Decision tree style gameplay</li>
+    <li>Not just PixiJS animation -- real game feel</li>
+  </ul>
+  <p style="color:#666;font-size:13px;margin-top:8px;">Click the style that's closest to your vision. We can mix elements too.</p>
+</div>
