@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import { InventoryManager } from "../systems/InventoryManager";
 import { FractureManager } from "../systems/FractureManager";
-import { GAME_WIDTH } from "../config";
+import { GAME_WIDTH } from "../constants";
 
 const SLOT_SIZE = 32;
 const SLOT_GAP = 6;

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { Choice } from "../data/types";
-import { GAME_WIDTH, GAME_HEIGHT } from "../config";
+import { GAME_WIDTH, GAME_HEIGHT } from "../constants";
 
 const BUTTON_WIDTH = GAME_WIDTH - 40;
 const BUTTON_HEIGHT = 40;

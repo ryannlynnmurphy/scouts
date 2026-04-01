@@ -6,8 +6,8 @@ import { MeadowScene } from "./scenes/MeadowScene";
 import { LakeScene } from "./scenes/LakeScene";
 import { VoidScene } from "./scenes/VoidScene";
 
-export const GAME_WIDTH = 960;
-export const GAME_HEIGHT = 540;
+import { GAME_WIDTH, GAME_HEIGHT } from "./constants";
+export { GAME_WIDTH, GAME_HEIGHT };
 
 export function createGameConfig(parent: string): Phaser.Types.Core.GameConfig {
   return {

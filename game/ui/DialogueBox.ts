@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { CHARACTERS } from "../data/characters";
-import { GAME_WIDTH, GAME_HEIGHT } from "../config";
+import { GAME_WIDTH, GAME_HEIGHT } from "../constants";
 
 const BOX_HEIGHT = 160;
 const BOX_PADDING = 16;
