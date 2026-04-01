@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import { audioManager } from "../systems/AudioManager";
 
 export class BootScene extends Phaser.Scene {
   constructor() {
@@ -49,6 +50,11 @@ export class BootScene extends Phaser.Scene {
   }
 
   create() {
+    // Initialize audio on first user interaction (browser autoplay policy).
+    // Howler.js will handle subsequent playback automatically once unlocked.
+    this.input.once("pointerdown", () => {
+      audioManager.init();
+    });
     this.scene.start("CampfireScene");
   }
 }

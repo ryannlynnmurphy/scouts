@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { GAME_WIDTH, GAME_HEIGHT } from "../constants";
+import { audioManager } from "../systems/AudioManager";
 
 export class TransitionOverlay {
   private scene: Phaser.Scene;
@@ -14,6 +15,7 @@ export class TransitionOverlay {
   }
 
   fadeOut(duration: number = 1000): Promise<void> {
+    audioManager.playTransition();
     return new Promise((resolve) => {
       this.scene.tweens.add({
         targets: this.overlay,

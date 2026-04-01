@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { sceneDirector } from "../systems/SceneDirector";
+import { audioManager } from "../systems/AudioManager";
 
 export class CampfireScene extends Phaser.Scene {
   constructor() {
@@ -22,6 +23,7 @@ export class CampfireScene extends Phaser.Scene {
     }
 
     sceneDirector.attachToScene(this);
+    audioManager.setAmbient("forest");
     sceneDirector.startCurrentScene(this);
   }
 }

@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { sceneDirector } from "../systems/SceneDirector";
+import { audioManager } from "../systems/AudioManager";
 
 export class VoidScene extends Phaser.Scene {
   constructor() {
@@ -22,6 +23,7 @@ export class VoidScene extends Phaser.Scene {
     }
 
     sceneDirector.attachToScene(this);
+    audioManager.setAmbient("silence");
     sceneDirector.startCurrentScene(this);
   }
 }

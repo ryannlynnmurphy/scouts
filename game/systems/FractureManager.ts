@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import { ChoiceType, FractureContext } from "../data/types";
+import { audioManager } from "./AudioManager";
 
 export class FractureManager {
   private _fracture: number = 0;
@@ -44,6 +45,7 @@ export class FractureManager {
   changeFracture(delta: number): void {
     this._fracture = Phaser.Math.Clamp(this._fracture + delta, 0, 1);
     this.updateVisuals();
+    audioManager.updateFracture(this._fracture);
   }
 
   /** Call when entering a Gay Shit scene */
