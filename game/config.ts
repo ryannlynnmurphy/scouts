@@ -25,5 +25,8 @@ export function createGameConfig(parent: string): Phaser.Types.Core.GameConfig {
       pixelArt: true,
       antialias: false,
     },
+    audio: {
+      noAudio: true, // Plan D will add Howler.js audio separately
+    },
   };
 }

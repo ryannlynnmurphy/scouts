@@ -17,12 +17,9 @@ export class LakeScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor("#0a1a2a");
-
-    this.add.text(480, 40, "~ The Lake ~", {
-      fontFamily: "Georgia, serif",
-      fontSize: "14px",
-      color: "#f8f0e3",
-    }).setOrigin(0.5).setAlpha(0.3);
+    if (this.textures.exists("bg-lake")) {
+      this.add.image(480, 270, "bg-lake").setDisplaySize(960, 540);
+    }
 
     sceneDirector.attachToScene(this);
     sceneDirector.startCurrentScene(this);

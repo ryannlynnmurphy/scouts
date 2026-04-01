@@ -17,12 +17,9 @@ export class MeadowScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor("#1a2a1a");
-
-    this.add.text(480, 40, "~ The Meadow ~", {
-      fontFamily: "Georgia, serif",
-      fontSize: "14px",
-      color: "#f8f0e3",
-    }).setOrigin(0.5).setAlpha(0.3);
+    if (this.textures.exists("bg-meadow")) {
+      this.add.image(480, 270, "bg-meadow").setDisplaySize(960, 540);
+    }
 
     sceneDirector.attachToScene(this);
     sceneDirector.startCurrentScene(this);

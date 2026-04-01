@@ -17,13 +17,9 @@ export class CampfireScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor("#0d1a0d");
-
-    // Placeholder background -- will be replaced by pixel art in Plan B
-    this.add.text(480, 40, "~ The Campfire Clearing ~", {
-      fontFamily: "Georgia, serif",
-      fontSize: "14px",
-      color: "#f8f0e3",
-    }).setOrigin(0.5).setAlpha(0.3);
+    if (this.textures.exists("bg-campfire")) {
+      this.add.image(480, 270, "bg-campfire").setDisplaySize(960, 540);
+    }
 
     sceneDirector.attachToScene(this);
     sceneDirector.startCurrentScene(this);

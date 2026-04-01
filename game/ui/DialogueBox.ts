@@ -15,6 +15,7 @@ export class DialogueBox {
   private speakerText: Phaser.GameObjects.Text;
   private dialogueText: Phaser.GameObjects.Text;
   private portraitRect: Phaser.GameObjects.Graphics;
+  private portraitSprite: Phaser.GameObjects.Image | null = null;
   private isTyping: boolean = false;
   private fullText: string = "";
   private currentCharIndex: number = 0;
@@ -99,13 +100,27 @@ export class DialogueBox {
       this.speakerText.setText(name);
       this.speakerText.setColor(color);
 
-      // Draw portrait placeholder
+      // Show portrait sprite or fallback to colored rectangle
       this.portraitRect.clear();
-      this.portraitRect.fillStyle(
-        Phaser.Display.Color.HexStringToColor(color).color,
-        0.8
-      );
-      this.portraitRect.fillRoundedRect(0, 0, PORTRAIT_SIZE, PORTRAIT_SIZE, 6);
+      if (this.portraitSprite) {
+        this.portraitSprite.destroy();
+        this.portraitSprite = null;
+      }
+      const portraitKey = `${speaker.toLowerCase()}-neutral`;
+      if (this.scene.textures.exists(portraitKey)) {
+        this.portraitSprite = this.scene.add.image(
+          BOX_PADDING + PORTRAIT_SIZE / 2,
+          BOX_PADDING + PORTRAIT_SIZE / 2,
+          portraitKey
+        ).setDisplaySize(PORTRAIT_SIZE, PORTRAIT_SIZE);
+        this.container.add(this.portraitSprite);
+      } else {
+        this.portraitRect.fillStyle(
+          Phaser.Display.Color.HexStringToColor(color).color,
+          0.8
+        );
+        this.portraitRect.fillRoundedRect(0, 0, PORTRAIT_SIZE, PORTRAIT_SIZE, 6);
+      }
     } else {
       // Stage direction
       this.speakerText.setText("");

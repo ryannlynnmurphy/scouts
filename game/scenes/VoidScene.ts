@@ -17,6 +17,9 @@ export class VoidScene extends Phaser.Scene {
 
   create() {
     this.cameras.main.setBackgroundColor("#000000");
+    if (this.textures.exists("bg-void")) {
+      this.add.image(480, 270, "bg-void").setDisplaySize(960, 540);
+    }
 
     sceneDirector.attachToScene(this);
     sceneDirector.startCurrentScene(this);
