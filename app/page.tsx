@@ -2,77 +2,37 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#1a1714",
-        color: "#f8f0e3",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "32px",
-        fontFamily: "Georgia, serif",
-      }}
-    >
-      <h1
-        style={{
-          fontFamily: "var(--font-playfair), Georgia, serif",
-          fontSize: "4rem",
-          fontWeight: 700,
-          color: "#C9A96E",
-          marginBottom: "16px",
-          letterSpacing: "0.15em",
-        }}
-      >
+    <main className="min-h-screen bg-[#0a0a0a] text-[#f8f0e3] flex flex-col items-center justify-center p-8">
+      <h1 className="font-serif text-6xl font-bold text-[#c9a96e] mb-6 tracking-wide">
         SCOUTS
       </h1>
-      <p
-        style={{
-          fontSize: "1.1rem",
-          color: "rgba(248, 240, 227, 0.7)",
-          marginBottom: "8px",
-          textAlign: "center",
-          maxWidth: "480px",
-        }}
-      >
-        An interactive narrative game based on the play by Ryann Murphy
+      <p className="text-lg text-[#f8f0e3]/70 mb-2 text-center max-w-md font-serif">
+        An interactive narrative game based on the play
       </p>
-      <p
-        style={{
-          fontSize: "0.8rem",
-          color: "rgba(248, 240, 227, 0.35)",
-          marginBottom: "48px",
-        }}
-      >
-        Content warning: homophobic language, bullying, toxic masculinity
+      <p className="text-sm text-[#f8f0e3]/40 mb-10 text-center font-serif">
+        by Ryann Lynn Murphy
       </p>
+
+      <div className="max-w-lg text-center mb-10 px-6 py-4 border border-[#333] rounded-lg bg-[#111]/50">
+        <p className="text-xs text-[#f8f0e3]/50 uppercase tracking-widest mb-3">
+          Content Warning
+        </p>
+        <p className="text-sm text-[#f8f0e3]/60 leading-relaxed font-serif">
+          Misogyny, homophobia, transphobia, f-slurs, depictions of animal violence,
+          depictions of violence, depictions of hazing, mentions of abuse, mentions of
+          negative body image, mentions of gender dysphoria, mentions of depression.
+        </p>
+      </div>
+
       <Link
         href="/play"
-        style={{
-          padding: "14px 48px",
-          background: "transparent",
-          border: "1px solid #C9A96E",
-          color: "#C9A96E",
-          fontFamily: "Georgia, serif",
-          fontSize: "1.1rem",
-          textDecoration: "none",
-          letterSpacing: "0.1em",
-          transition: "all 0.3s",
-          borderRadius: "2px",
-        }}
+        className="px-10 py-4 bg-[#c9a96e] text-[#1a1714] font-bold rounded-md hover:bg-[#b8955a] transition-colors text-lg font-serif tracking-wide"
       >
         Begin
       </Link>
-      <p
-        style={{
-          fontSize: "0.7rem",
-          color: "rgba(248, 240, 227, 0.2)",
-          marginTop: "80px",
-          textAlign: "center",
-        }}
-      >
-        Read at Juilliard. Tracking toward Off-Broadway.
+
+      <p className="text-xs text-[#f8f0e3]/20 mt-16 font-serif">
+        Best experienced with headphones.
       </p>
     </main>
   );
