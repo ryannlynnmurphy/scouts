@@ -36,6 +36,12 @@ export class BootScene extends Phaser.Scene {
       }
     }
 
+    // Character world sprites (48x64 RPG standing sprites)
+    const charNames = ["simon", "sam", "brent", "josh", "noah", "lucas"];
+    for (const name of charNames) {
+      this.load.image(`${name}-sprite`, `assets/sprites/characters/${name}-sprite.png`);
+    }
+
     // Inventory icons
     const items = ["neckerchief", "marshmallow", "squirrelBlood", "flower", "samsKiss", "brentsBlood"];
     for (const item of items) {

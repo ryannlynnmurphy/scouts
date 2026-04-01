@@ -18,6 +18,8 @@ export class DialogueManager {
   private currentLineIndex: number = 0;
   private onSceneChange: ((sceneKey: SceneKey) => void) | null = null;
   private onScriptComplete: (() => void) | null = null;
+  /** Optional callback to notify when the speaker changes (for sprite highlighting) */
+  public onSpeakerChange: ((charKey: string | null) => void) | null = null;
 
   constructor(
     scene: Phaser.Scene,
@@ -93,6 +95,11 @@ export class DialogueManager {
 
     const line = this.currentBeat.lines[this.currentLineIndex];
     this.currentLineIndex++;
+
+    // Notify speaker change for sprite highlighting
+    if (this.onSpeakerChange) {
+      this.onSpeakerChange(line.speaker ? line.speaker.toLowerCase() : null);
+    }
 
     const delay = line.delay || 0;
 
