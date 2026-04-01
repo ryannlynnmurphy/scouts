@@ -44,6 +44,27 @@ const CHAR_SCALE: Record<string, number> = {
 };
 const DEFAULT_SCALE = 3;
 
+// Simon posture states keyed by fracture level
+interface PostureState {
+  scale: number;
+  yOffset: number;    // additional y offset in pixels (positive = lower / more hunched)
+  rotation: number;   // degrees
+}
+
+const SIMON_POSTURES: Record<"intact" | "cracking" | "fracturing" | "shattered", PostureState> = {
+  intact:     { scale: 2.8,  yOffset: 0,  rotation: 0  },
+  cracking:   { scale: 2.75, yOffset: 2,  rotation: 0  },
+  fracturing: { scale: 2.65, yOffset: 4,  rotation: -2 },
+  shattered:  { scale: 2.5,  yOffset: 8,  rotation: -4 },
+};
+
+function fractureToPostureKey(fracture: number): keyof typeof SIMON_POSTURES {
+  if (fracture <= 0.25) return "intact";
+  if (fracture <= 0.5)  return "cracking";
+  if (fracture <= 0.75) return "fracturing";
+  return "shattered";
+}
+
 export class CharacterSprites {
   private scene: Phaser.Scene;
   private sprites: Map<string, Phaser.GameObjects.Image> = new Map();
@@ -121,6 +142,48 @@ export class CharacterSprites {
     }
 
     this.activeSpeaker = key;
+  }
+
+  /**
+   * Apply posture transforms to Simon's sprite based on the current fracture level.
+   * Called by FractureManager whenever fracture changes.
+   */
+  updateSimonPosture(fracture: number): void {
+    const simon = this.sprites.get("simon");
+    if (!simon) return;
+
+    const key = fractureToPostureKey(fracture);
+    const posture = SIMON_POSTURES[key];
+
+    // Determine Simon's base Y from the scene positions
+    const positions = SCENE_POSITIONS[this.sceneKey] || {};
+    const basePos = positions["simon"] || { x: 480, y: 300 };
+
+    simon.setScale(posture.scale);
+    simon.setY(basePos.y + posture.yOffset);
+    simon.setAngle(posture.rotation);
+  }
+
+  /**
+   * Smoothly tween Simon back to the Intact posture (used during Gay Shit scenes).
+   */
+  resetSimonPosture(): void {
+    const simon = this.sprites.get("simon");
+    if (!simon) return;
+
+    const positions = SCENE_POSITIONS[this.sceneKey] || {};
+    const basePos = positions["simon"] || { x: 480, y: 300 };
+    const intact = SIMON_POSTURES.intact;
+
+    this.scene.tweens.add({
+      targets: simon,
+      scaleX: intact.scale,
+      scaleY: intact.scale,
+      y: basePos.y + intact.yOffset,
+      angle: intact.rotation,
+      duration: 2000,
+      ease: "Sine.easeOut",
+    });
   }
 
   /** Remove all sprites from the scene */
