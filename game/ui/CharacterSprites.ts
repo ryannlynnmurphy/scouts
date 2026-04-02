@@ -2,31 +2,31 @@ import Phaser from "phaser";
 
 // Predefined positions for different scene configurations
 const CAMPFIRE_POSITIONS: Record<string, { x: number; y: number }> = {
-  brent: { x: 480, y: 280 },   // Center, pacing in front
-  simon: { x: 250, y: 320 },   // Left side, slightly back
-  sam:   { x: 300, y: 320 },   // Next to Simon
-  josh:  { x: 600, y: 310 },   // Right side
-  noah:  { x: 660, y: 315 },   // Right of Josh
-  lucas: { x: 720, y: 320 },   // Far right
+  brent: { x: 480, y: 395 },   // Center front, feet on dirt
+  simon: { x: 270, y: 410 },   // Left side, slightly back, close to Sam
+  sam:   { x: 330, y: 408 },   // Right next to Simon
+  josh:  { x: 590, y: 405 },   // Right side
+  noah:  { x: 660, y: 408 },   // Right of Josh
+  lucas: { x: 730, y: 412 },   // Far right, slightly back
 };
 
 const CLIFF_POSITIONS: Record<string, { x: number; y: number }> = {
-  simon: { x: 380, y: 340 },   // Sitting on cliff
-  sam:   { x: 540, y: 330 },   // Next to Simon, standing
+  simon: { x: 400, y: 420 },   // On the rock
+  sam:   { x: 500, y: 415 },   // Right beside, close
 };
 
 const MEADOW_POSITIONS: Record<string, { x: number; y: number }> = {
-  simon: { x: 400, y: 320 },   // In the flowers
-  sam:   { x: 520, y: 310 },   // Nearby
+  simon: { x: 420, y: 410 },   // In the flowers
+  sam:   { x: 510, y: 405 },   // Close by
 };
 
 const LAKE_POSITIONS: Record<string, { x: number; y: number }> = {
-  simon: { x: 420, y: 330 },   // On the rock
-  sam:   { x: 500, y: 325 },   // Right beside, close
+  simon: { x: 440, y: 415 },   // On the rock
+  sam:   { x: 510, y: 412 },   // Right beside, intimate
 };
 
 const VOID_POSITIONS: Record<string, { x: number; y: number }> = {
-  _default: { x: 480, y: 300 }, // Centered spotlight — one character at a time
+  _default: { x: 480, y: 380 }, // Centered in spotlight
 };
 
 const SCENE_POSITIONS: Record<string, Record<string, { x: number; y: number }>> = {

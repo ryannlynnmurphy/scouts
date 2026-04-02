@@ -2,10 +2,10 @@ import Phaser from "phaser";
 import { CHARACTERS } from "../data/characters";
 import { GAME_WIDTH, GAME_HEIGHT } from "../constants";
 
-const BOX_HEIGHT = 160;
-const BOX_PADDING = 16;
+const BOX_HEIGHT = 130;
+const BOX_PADDING = 12;
 const BOX_Y = GAME_HEIGHT - BOX_HEIGHT;
-const PORTRAIT_SIZE = 80;
+const PORTRAIT_SIZE = 64;
 const TEXT_SPEED = 30; // ms per character
 
 export class DialogueBox {
