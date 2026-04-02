@@ -4,6 +4,7 @@ import { DialogueManager } from "./DialogueManager";
 import { FractureManager } from "./FractureManager";
 import { InventoryManager } from "./InventoryManager";
 import { ChoiceTracker } from "./ChoiceTracker";
+import { SuspicionManager } from "./SuspicionManager";
 import { InventoryBar } from "../ui/InventoryBar";
 import { TransitionOverlay } from "../ui/TransitionOverlay";
 import { CharacterSprites } from "../ui/CharacterSprites";
@@ -50,11 +51,13 @@ export class SceneDirector {
   public fracture: FractureManager;
   public inventory: InventoryManager;
   public tracker: ChoiceTracker;
+  public suspicion: SuspicionManager;
 
   constructor() {
     this.fracture = new FractureManager(null as unknown as Phaser.Scene);
     this.inventory = new InventoryManager();
     this.tracker = new ChoiceTracker();
+    this.suspicion = new SuspicionManager();
   }
 
   /** Called when a Phaser scene's create() fires */
@@ -68,7 +71,8 @@ export class SceneDirector {
       scene,
       this.fracture,
       this.inventory,
-      this.tracker
+      this.tracker,
+      this.suspicion
     );
     // Wire speaker-change callback so sprites light up with each line
     this.dialogueManager.onSpeakerChange = (charKey) => {
@@ -173,12 +177,14 @@ export class SceneDirector {
     // Store state before switching
     const fractureState = this.fracture.toJSON();
     const inventoryState = this.inventory.toJSON();
+    const suspicionState = this.suspicion.toJSON();
 
     // Switch Phaser scene
     currentScene.scene.start(targetSceneKey, {
       director: this,
       fractureState,
       inventoryState,
+      suspicionState,
     });
   }
 

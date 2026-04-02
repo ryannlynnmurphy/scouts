@@ -5,6 +5,7 @@ import { ChoiceButtons } from "../ui/ChoiceButtons";
 import { FractureManager } from "./FractureManager";
 import { InventoryManager } from "./InventoryManager";
 import { ChoiceTracker } from "./ChoiceTracker";
+import { SuspicionManager } from "./SuspicionManager";
 
 export class DialogueManager {
   private scene: Phaser.Scene;
@@ -13,6 +14,7 @@ export class DialogueManager {
   private fracture: FractureManager;
   private inventory: InventoryManager;
   private tracker: ChoiceTracker;
+  private suspicion: SuspicionManager;
   private beats: Map<string, Beat> = new Map();
   private currentBeat: Beat | null = null;
   private currentLineIndex: number = 0;
@@ -20,23 +22,28 @@ export class DialogueManager {
   private onScriptComplete: (() => void) | null = null;
   /** Optional callback to notify when the speaker changes (for sprite highlighting) */
   public onSpeakerChange: ((charKey: string | null) => void) | null = null;
+  /** Tracks the current script id for ad-lib gating (set by loadScript) */
+  private currentScriptId: string = "";
 
   constructor(
     scene: Phaser.Scene,
     fracture: FractureManager,
     inventory: InventoryManager,
-    tracker: ChoiceTracker
+    tracker: ChoiceTracker,
+    suspicion: SuspicionManager
   ) {
     this.scene = scene;
     this.fracture = fracture;
     this.inventory = inventory;
     this.tracker = tracker;
+    this.suspicion = suspicion;
     this.dialogueBox = new DialogueBox(scene);
     this.choiceButtons = new ChoiceButtons(scene);
   }
 
   loadScript(script: SceneScript): void {
     this.beats.clear();
+    this.currentScriptId = script.id;
     for (const beat of script.beats) {
       this.beats.set(beat.id, beat);
     }
@@ -70,6 +77,22 @@ export class DialogueManager {
       }
       if (beat.onEnter.fractureChange) {
         this.fracture.changeFracture(beat.onEnter.fractureChange);
+      }
+      if (beat.onEnter.suspicionChange) {
+        this.suspicion.changeSuspicion(beat.onEnter.suspicionChange);
+      }
+    }
+
+    // Inject a Brent ad-lib before lines, only in CampfireScene scripts
+    // (not in Gay Shit acts or monologues)
+    const adLibContext = beat.id;
+    if (this.shouldInjectAdLib()) {
+      const adLib = this.suspicion.getBrentAdLib(adLibContext);
+      if (adLib) {
+        this.dialogueBox.showLine("brent", adLib, () => {
+          this.advanceLine();
+        });
+        return;
       }
     }
 
@@ -117,8 +140,19 @@ export class DialogueManager {
   }
 
   private showChoices(choices: Choice[], timerSeconds?: number): void {
+    // Filter out choices that don't match current suspicion level
+    const suspicionValue = this.suspicion.suspicion;
+    const filtered = choices.filter((c) => {
+      if (c.minSuspicion !== undefined && suspicionValue < c.minSuspicion) return false;
+      if (c.maxSuspicion !== undefined && suspicionValue >= c.maxSuspicion) return false;
+      return true;
+    });
+
+    // Fall back to all choices if filtering removed everything
+    const visible = filtered.length > 0 ? filtered : choices;
+
     this.choiceButtons.showChoices(
-      choices,
+      visible,
       timerSeconds,
       this.fracture.fracture,
       (selected) => {
@@ -133,10 +167,29 @@ export class DialogueManager {
         // Apply fracture
         this.fracture.applyChoice(selected.type, selected.context);
 
+        // Apply suspicion delta if present
+        if (selected.suspicionDelta !== undefined) {
+          this.suspicion.changeSuspicion(selected.suspicionDelta);
+        }
+
         // Go to next beat
         this.goToBeat(selected.nextBeat);
       }
     );
+  }
+
+  /**
+   * Returns true if Brent ad-libs should be considered for injection.
+   * Only fires during CampfireScene scripts -- not Gay Shit acts or monologues.
+   */
+  private shouldInjectAdLib(): boolean {
+    const id = this.currentScriptId;
+    if (!id) return false;
+    // Gay Shit and monologue scripts are excluded
+    if (id.startsWith("gay-shit")) return false;
+    if (id.startsWith("monologue")) return false;
+    if (id === "ending") return false;
+    return true;
   }
 
   private goToBeat(beatId: string): void {
@@ -175,6 +228,7 @@ export class DialogueManager {
       if (beat.onEnter.addItem) this.inventory.addItem(beat.onEnter.addItem);
       if (beat.onEnter.removeItem) this.inventory.removeItem(beat.onEnter.removeItem);
       if (beat.onEnter.fractureChange) this.fracture.changeFracture(beat.onEnter.fractureChange);
+      if (beat.onEnter.suspicionChange) this.suspicion.changeSuspicion(beat.onEnter.suspicionChange);
     }
 
     this.advanceLine();

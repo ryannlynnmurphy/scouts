@@ -14,6 +14,9 @@ export class VoidScene extends Phaser.Scene {
     if (data.inventoryState) {
       sceneDirector.inventory.fromJSON(data.inventoryState);
     }
+    if (data.suspicionState) {
+      sceneDirector.suspicion.fromJSON(data.suspicionState);
+    }
   }
 
   create() {
