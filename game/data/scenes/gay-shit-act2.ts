@@ -4,6 +4,49 @@ export const SCRIPT: SceneScript = {
   id: "gay-shit-act2",
   title: "Gay Shit Act Two: The Meadow",
   beats: [
+    // SUSPICION GATE: If suspicion >= 0.3, show the gate beat before entering.
+    // SceneDirector should route to "act2-suspicion-gate" when suspicion >= 0.3,
+    // otherwise skip directly to "act2-start".
+    {
+      id: "act2-suspicion-gate",
+      location: "MeadowScene",
+      lines: [
+        { speaker: "sam", text: "(whispers) Come on, let's get out of here." },
+      ],
+      choices: [
+        {
+          id: "act2-gate-follow",
+          text: "(follow Sam)",
+          type: "authentic",
+          fractureDelta: 0.0,
+          suspicionDelta: 0.03,
+          minSuspicion: 0.3,
+          context: "dangerous",
+          nextBeat: "act2-start",
+        },
+        {
+          id: "act2-gate-cant",
+          text: "We can't. He's watching.",
+          type: "performed",
+          fractureDelta: 0.08,
+          suspicionDelta: 0,
+          minSuspicion: 0.3,
+          context: "dangerous",
+          nextBeat: "end",
+        },
+        {
+          id: "act2-gate-second",
+          text: "Give me a second.",
+          type: "deflect",
+          fractureDelta: 0.02,
+          suspicionDelta: 0,
+          minSuspicion: 0.3,
+          context: "dangerous",
+          nextBeat: "act2-start",
+        },
+      ],
+      timer: 10,
+    },
     {
       id: "act2-start",
       location: "MeadowScene",

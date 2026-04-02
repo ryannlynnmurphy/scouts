@@ -141,7 +141,104 @@ export const SCRIPT: SceneScript = {
       lines: [
         { speaker: "sam", text: "..." },
       ],
+      // SceneDirector: if suspicion >= 0.6, route to "act3-exposure-snap"
+      // otherwise proceed to "act3-choice48"
+      nextBeat: "act3-exposure-gate",
+    },
+    // EXPOSURE GATE: SceneDirector checks suspicion level here.
+    // If suspicion >= 0.6 -> route to "act3-exposure-snap"
+    // If suspicion < 0.6  -> route to "act3-choice48" (normal path)
+    {
+      id: "act3-exposure-gate",
+      location: "LakeScene",
+      lines: [],
       nextBeat: "act3-choice48",
+    },
+    // THE EXPOSURE PATH -- Brent followed them to the lake (suspicion >= 0.6)
+    {
+      id: "act3-exposure-snap",
+      location: "LakeScene",
+      lines: [
+        { speaker: null, text: "(A branch snaps.)" },
+        { speaker: null, text: "(Brent steps out from behind the trees. He's been watching.)" },
+        { speaker: "brent", text: "Well well well." },
+        { speaker: "sam", text: "Brent, it's not--" },
+        { speaker: "brent", text: "DON'T. I SAW IT." },
+      ],
+      onEnter: { suspicionChange: 0.1 },
+      choices: [
+        {
+          id: "exposure-so-what",
+          text: "So what?",
+          type: "authentic",
+          fractureDelta: -0.05,
+          suspicionDelta: 0.15,
+          minSuspicion: 0.6,
+          context: "forced",
+          nextBeat: "act3-exposure-aftermath",
+        },
+        {
+          id: "exposure-joke",
+          text: "It was a joke. Like earlier.",
+          type: "performed",
+          fractureDelta: 0.06,
+          suspicionDelta: -0.03,
+          minSuspicion: 0.6,
+          context: "forced",
+          nextBeat: "act3-exposure-joke-response",
+        },
+        {
+          id: "exposure-protect",
+          text: "(step in front of Sam)",
+          type: "authentic",
+          fractureDelta: -0.03,
+          suspicionDelta: 0.08,
+          minSuspicion: 0.6,
+          context: "forced",
+          nextBeat: "act3-exposure-protect",
+        },
+        {
+          id: "exposure-run",
+          text: "(run)",
+          type: "deflect",
+          fractureDelta: 0.04,
+          suspicionDelta: 0.02,
+          minSuspicion: 0.6,
+          context: "forced",
+          nextBeat: "act3-exposure-aftermath",
+        },
+      ],
+      timer: 5,
+    },
+    {
+      id: "act3-exposure-joke-response",
+      location: "LakeScene",
+      lines: [
+        { speaker: "brent", text: "A JOKE? You were about to KISS HIM." },
+        { speaker: "simon", text: "You made us kiss earlier! You said it proves we're NOT--" },
+        { speaker: null, text: "(Brent's logic collapses. He can't argue against his own test. But he's FURIOUS.)" },
+      ],
+      nextBeat: "act3-exposure-aftermath",
+    },
+    {
+      id: "act3-exposure-protect",
+      location: "LakeScene",
+      lines: [
+        { speaker: null, text: "(Simon steps in front of Sam. Shields him with his body.)" },
+        { speaker: "brent", text: "STAY OUT OF THIS, SAM. Unless you want to get hurt too." },
+        { speaker: null, text: "(The flower blooms. Full. Bright. In front of everyone.)" },
+      ],
+      onEnter: { fractureChange: -0.10 },
+      nextBeat: "act3-exposure-aftermath",
+    },
+    {
+      id: "act3-exposure-aftermath",
+      location: "LakeScene",
+      lines: [
+        { speaker: null, text: "(The stars are still there. Even after everything.)" },
+        { speaker: null, text: "(Simon looks up and they are still there.)" },
+      ],
+      nextBeat: "act3-end",
     },
     // Choice 48
     {

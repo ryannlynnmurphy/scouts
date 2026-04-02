@@ -4,6 +4,49 @@ export const SCRIPT: SceneScript = {
   id: "gay-shit-act1",
   title: "Gay Shit Act One: The Cliff",
   beats: [
+    // SUSPICION GATE: If suspicion >= 0.3, show the gate beat before entering.
+    // SceneDirector should route to "act1-suspicion-gate" when suspicion >= 0.3,
+    // otherwise skip directly to "act1-start".
+    {
+      id: "act1-suspicion-gate",
+      location: "CliffScene",
+      lines: [
+        { speaker: "sam", text: "(whispers) Come on, let's get out of here." },
+      ],
+      choices: [
+        {
+          id: "act1-gate-follow",
+          text: "(follow Sam)",
+          type: "authentic",
+          fractureDelta: 0.0,
+          suspicionDelta: 0.03,
+          minSuspicion: 0.3,
+          context: "dangerous",
+          nextBeat: "act1-start",
+        },
+        {
+          id: "act1-gate-cant",
+          text: "We can't. He's watching.",
+          type: "performed",
+          fractureDelta: 0.08,
+          suspicionDelta: 0,
+          minSuspicion: 0.3,
+          context: "dangerous",
+          nextBeat: "end",
+        },
+        {
+          id: "act1-gate-second",
+          text: "Give me a second.",
+          type: "deflect",
+          fractureDelta: 0.02,
+          suspicionDelta: 0,
+          minSuspicion: 0.3,
+          context: "dangerous",
+          nextBeat: "act1-start",
+        },
+      ],
+      timer: 10,
+    },
     // fracture restoration + scene open
     {
       id: "act1-start",
