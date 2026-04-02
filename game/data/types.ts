@@ -14,6 +14,9 @@ export interface Choice {
   text: string;
   type: ChoiceType;
   fractureDelta: number;
+  suspicionDelta?: number; // how much this choice shifts suspicion (0.0 to 1.0 scale)
+  minSuspicion?: number; // only show this choice when suspicion >= this value
+  maxSuspicion?: number; // only show this choice when suspicion <= this value
   context: FractureContext;
   nextBeat: string; // which beat to jump to after this choice
   locked?: {
@@ -32,6 +35,7 @@ export interface Beat {
     addItem?: string;
     removeItem?: string;
     fractureChange?: number;
+    suspicionChange?: number; // direct suspicion shift on beat entry
     expression?: Record<string, string>; // character -> expression
   };
   nextBeat?: string; // auto-advance to this beat (if no choices)
