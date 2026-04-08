@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import Phaser from "phaser";
-import { createGameConfig } from "./config";
+import { gameConfig } from "./config";
 
 export default function Game() {
   const gameRef = useRef<Phaser.Game | null>(null);
@@ -10,8 +10,10 @@ export default function Game() {
 
   useEffect(() => {
     if (containerRef.current && !gameRef.current) {
-      const config = createGameConfig("game-container");
-      gameRef.current = new Phaser.Game(config);
+      gameRef.current = new Phaser.Game({
+        ...gameConfig,
+        parent: "game-container",
+      });
     }
     return () => {
       if (gameRef.current) {
