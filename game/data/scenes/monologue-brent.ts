@@ -60,7 +60,7 @@ export const SCRIPT: SceneScript = {
       id: "brent-mono-final-choice",
       location: "VoidScene",
       lines: [
-        { speaker: null, text: "(The question hangs in the dark. Simon hears it.)" },
+        { speaker: null, text: "(The question hangs in the dark. Quinn hears it.)" },
         { speaker: null, text: "(Do I have to be a man?)" },
       ],
       choices: [

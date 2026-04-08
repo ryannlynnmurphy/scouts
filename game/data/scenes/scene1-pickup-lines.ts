@@ -10,7 +10,7 @@ export const SCRIPT: SceneScript = {
       onEnter: { addItem: "marshmallow" },
       lines: [
         { speaker: "lucas", text: "GIRLS!!!!" },
-        { speaker: "simon", text: "Girls?" },
+        { speaker: "quinn", text: "Girls?" },
         { speaker: "brent", text: "GIRLS!!!!! Girls are a big part of being a man. It's crucial to know how to treat them. What they are. And what their purpose is. So I brought a little prop…" },
         { speaker: null, text: "(Brent reaches back into the cooler. He has an inflatable sex doll that has yet to be blown up.)" },
         { speaker: "brent", text: "Boys, this is a woman." },
@@ -128,7 +128,7 @@ export const SCRIPT: SceneScript = {
         { speaker: "lucas", text: "What woman wouldn't want men to serve them?" },
         { speaker: "brent", text: "Uh… the hot ones." },
         { speaker: "brent", text: "Women, well at least hot women, want to serve MEN with their ass and titties. Remember that boys. They don't want a bitch boy that brings them flowers and writes them poetry." },
-        { speaker: null, text: "(Simon breaks open the bag of marshmallows.)" },
+        { speaker: null, text: "(Quinn breaks open the bag of marshmallows.)" },
         { speaker: "lucas", text: "WOAH, I think women want men to respect them, and then in return for respecting them, we can get the privilege of wrecking their pussies." },
       ],
       nextBeat: "pickup-lucas-respect",
@@ -138,7 +138,7 @@ export const SCRIPT: SceneScript = {
       location: "CampfireScene",
       lines: [
         { speaker: "brent", text: "Men are not here to serve women. I truly believe that it's a woman's duty to make sure that men thrive." },
-        { speaker: null, text: "(Simon begins to offer the marshmallows to the boys.)" },
+        { speaker: null, text: "(Quinn begins to offer the marshmallows to the boys.)" },
         { speaker: "lucas", text: "Okay and I truly believe that that's your opinion, and I respect your right to have an opinion… even if it's a wrong opinion." },
         { speaker: "brent", text: "Did you just say that my opinion was wrong?" },
         { speaker: "lucas", text: "I don't even know what \"implied\" means." },
@@ -149,7 +149,7 @@ export const SCRIPT: SceneScript = {
       id: "pickup-lines-go",
       location: "CampfireScene",
       lines: [
-        { speaker: null, text: "(The sex doll has been blown up. Simon gets the marshmallows back, eats a handful, and puts them away.)" },
+        { speaker: null, text: "(The sex doll has been blown up. Quinn gets the marshmallows back, eats a handful, and puts them away.)" },
         { speaker: "brent", text: "I'VE WRECKED WAY MORE PUSSY THAN YOU, BITCH. SO I AM MORE OF A MAN. SO LISTEN THE FUCK UP. We're going to do a little bit of practice." },
         { speaker: "brent", text: "PICKUP LINES LET'S GO! JOSH YOU START." },
         { speaker: "josh", text: "HEy sExy mama. Would you like to go on a date?" },
@@ -201,7 +201,7 @@ export const SCRIPT: SceneScript = {
         { speaker: "noah", text: "Hey. I like you. And your ass and titties." },
         { speaker: "brent", text: "Close. Good. Could be better. Men are not vulnerable. We're stoic, straight-faced. No emotions required." },
         { speaker: "brent", text: "SIMON. YOUR TURN." },
-        { speaker: null, text: "(Brent shoves the sex doll in Simon's face.)" },
+        { speaker: null, text: "(Brent shoves the sex doll in Quinn's face.)" },
       ],
       choices: [
         {
@@ -277,7 +277,7 @@ export const SCRIPT: SceneScript = {
       location: "CampfireScene",
       lines: [
         { speaker: "brent", text: "Say it. ASS. TITS. COME ON." },
-        { speaker: null, text: "(Brent finishes the line for Simon.)" },
+        { speaker: null, text: "(Brent finishes the line for Quinn.)" },
         { speaker: "brent", text: "\"...I'd like to squeeze your tits and squeeze your ass.\" There. WAS THAT SO HARD?" },
       ],
       nextBeat: "pickup-josh-reaction",
@@ -286,8 +286,8 @@ export const SCRIPT: SceneScript = {
       id: "pickup-brent-impressed",
       location: "CampfireScene",
       lines: [
-        { speaker: "brent", text: "Wow, Simon I'm impressed. I didn't think the word tits could come out of your mouth without you throwing up." },
-        { speaker: "simon", text: "You'd be surprised." },
+        { speaker: "brent", text: "Wow, Quinn I'm impressed. I didn't think the word tits could come out of your mouth without you throwing up." },
+        { speaker: "quinn", text: "You'd be surprised." },
       ],
       nextBeat: "pickup-josh-reaction",
     },
@@ -296,8 +296,8 @@ export const SCRIPT: SceneScript = {
       location: "CampfireScene",
       lines: [
         { speaker: "brent", text: "AGAIN." },
-        { speaker: "simon", text: "Um… hey how are you? I'd like to get to know you better? And your ass and tits…" },
-        { speaker: "brent", text: "Wow, Simon I'm impressed." },
+        { speaker: "quinn", text: "Um… hey how are you? I'd like to get to know you better? And your ass and tits…" },
+        { speaker: "brent", text: "Wow, Quinn I'm impressed." },
       ],
       nextBeat: "pickup-josh-reaction",
     },
@@ -346,7 +346,7 @@ export const SCRIPT: SceneScript = {
       id: "pickup-josh-disgust",
       location: "CampfireScene",
       lines: [
-        { speaker: null, text: "(Look at Sam. He looks back. A shared look.)" },
+        { speaker: null, text: "(Look at Matt. He looks back. A shared look.)" },
         { speaker: "brent", text: "Boys, you should all be looking up to Josh right now. He's starting to get what I mean by being a man." },
       ],
       nextBeat: "end",

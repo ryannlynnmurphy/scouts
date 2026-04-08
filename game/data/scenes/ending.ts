@@ -31,7 +31,7 @@ export const SCRIPT: SceneScript = {
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods different from how he walked in.",
+          text: "Quinn walked out of the woods different from how he walked in.",
         },
         {
           speaker: null,
@@ -51,7 +51,7 @@ export const SCRIPT: SceneScript = {
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods.",
+          text: "Quinn walked out of the woods.",
         },
         {
           speaker: null,
@@ -59,7 +59,7 @@ export const SCRIPT: SceneScript = {
         },
         {
           speaker: null,
-          text: "But he knew one thing: Sam's hand was warm, and the stars were still there.",
+          text: "But he knew one thing: Matt's hand was warm, and the stars were still there.",
         },
       ],
       nextBeat: "ending-credits",
@@ -71,7 +71,7 @@ export const SCRIPT: SceneScript = {
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods.",
+          text: "Quinn walked out of the woods.",
         },
         {
           speaker: null,
@@ -79,23 +79,23 @@ export const SCRIPT: SceneScript = {
         },
         {
           speaker: null,
-          text: "When he finally did, the only word that came out was Sam's name.",
+          text: "When he finally did, the only word that came out was Matt's name.",
         },
       ],
       nextBeat: "ending-credits",
     },
-    // Never opened up to Sam ending
+    // Never opened up to Matt ending
     {
       id: "ending-alone",
       location: "VoidScene",
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods alone.",
+          text: "Quinn walked out of the woods alone.",
         },
         {
           speaker: null,
-          text: "Sam called after him.",
+          text: "Matt called after him.",
         },
         {
           speaker: null,
@@ -113,7 +113,7 @@ export const SCRIPT: SceneScript = {
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods the way he walked in.",
+          text: "Quinn walked out of the woods the way he walked in.",
         },
         {
           speaker: null,
@@ -121,7 +121,7 @@ export const SCRIPT: SceneScript = {
         },
         {
           speaker: null,
-          text: "No one knows who he really is. Not even Sam knows how much Simon sacrificed to keep them safe.",
+          text: "No one knows who he really is. Not even Matt knows how much Quinn sacrificed to keep them safe.",
         },
       ],
       nextBeat: "ending-credits",
@@ -133,7 +133,7 @@ export const SCRIPT: SceneScript = {
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods with Brent's eyes still on his back.",
+          text: "Quinn walked out of the woods with Brent's eyes still on his back.",
         },
         {
           speaker: null,
@@ -146,14 +146,14 @@ export const SCRIPT: SceneScript = {
       ],
       nextBeat: "ending-credits",
     },
-    // Path 3: The Defiance Path (Simon chose "So what if we are?")
+    // Path 3: The Defiance Path (Quinn chose "So what if we are?")
     {
       id: "ending-defiance",
       location: "VoidScene",
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods with blood on his hands and Sam's hand in his.",
+          text: "Quinn walked out of the woods with blood on his hands and Matt's hand in his.",
         },
         {
           speaker: null,
@@ -181,27 +181,27 @@ export const SCRIPT: SceneScript = {
         },
         {
           speaker: null,
-          text: "Simon looked up and they were still there.",
+          text: "Quinn looked up and they were still there.",
         },
       ],
       nextBeat: "ending-credits",
     },
-    // Path 5: The Protection Path (Simon consistently protected Sam)
+    // Path 5: The Protection Path (Quinn consistently protected Matt)
     {
       id: "ending-protection",
       location: "VoidScene",
       lines: [
         {
           speaker: null,
-          text: "Simon walked out of the woods alone.",
+          text: "Quinn walked out of the woods alone.",
         },
         {
           speaker: null,
-          text: "He told Sam to go ahead. He needed a minute.",
+          text: "He told Matt to go ahead. He needed a minute.",
         },
         {
           speaker: null,
-          text: "He sat on a stump and looked at his hands. Then he looked at the flower Sam gave him.",
+          text: "He sat on a stump and looked at his hands. Then he looked at the flower Matt gave him.",
         },
         {
           speaker: null,

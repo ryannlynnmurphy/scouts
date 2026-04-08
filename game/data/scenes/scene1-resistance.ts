@@ -77,7 +77,7 @@ export const SCRIPT: SceneScript = {
         { speaker: "lucas", text: "Gottem." },
         { speaker: "brent", text: "Wow, Noah, if I knew you felt this way I would have never invited you to the woods." },
         { speaker: "noah", text: "You told us we'd be making s'mores and sitting around a campfire. And there have been no s'mores and no campfire. And I'm fucking cold. Come on guys? Do you really want to be here right now?" },
-        { speaker: "simon", text: "I want s'mores." },
+        { speaker: "quinn", text: "I want s'mores." },
       ],
       nextBeat: "resistance-no-right-way",
     },
@@ -88,7 +88,7 @@ export const SCRIPT: SceneScript = {
         { speaker: "noah", text: "I never asked you for a fucking favor. And I want to go to bed." },
         { speaker: "brent", text: "Wow, Noah, if I knew you felt this way I would have never invited you to the woods." },
         { speaker: "noah", text: "You told us we'd be making s'mores and sitting around a campfire. And I'm fucking cold. Come on guys?" },
-        { speaker: "simon", text: "I want s'mores." },
+        { speaker: "quinn", text: "I want s'mores." },
       ],
       nextBeat: "resistance-no-right-way",
     },
@@ -134,7 +134,7 @@ export const SCRIPT: SceneScript = {
       id: "resistance-therapist",
       location: "CampfireScene",
       lines: [
-        { speaker: "sam", text: "Mhm." },
+        { speaker: "matt", text: "Mhm." },
         { speaker: "lucas", text: "I can give you my therapist's number." },
         { speaker: "brent", text: "Real men don't go to therapy." },
         { speaker: "josh", text: "YEAH." },
@@ -298,7 +298,7 @@ export const SCRIPT: SceneScript = {
         },
         {
           id: "callout-let-sam",
-          text: "(let Sam answer)",
+          text: "(let Matt answer)",
           type: "deflect",
           fractureDelta: 0.01,
           suspicionDelta: 0.03,
@@ -322,7 +322,7 @@ export const SCRIPT: SceneScript = {
       id: "resistance-sam-answers",
       location: "CampfireScene",
       lines: [
-        { speaker: "sam", text: "We're scouts. We look out for each other." },
+        { speaker: "matt", text: "We're scouts. We look out for each other." },
         { speaker: "brent", text: "..." },
       ],
       nextBeat: "resistance-threat",
@@ -354,7 +354,7 @@ export const SCRIPT: SceneScript = {
         },
         {
           id: "threat-sam",
-          text: "(step behind Sam)",
+          text: "(step behind Matt)",
           type: "deflect",
           fractureDelta: 0.01,
           suspicionDelta: 0.02,
