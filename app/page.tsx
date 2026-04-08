@@ -2,38 +2,31 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-[#f8f0e3] flex flex-col items-center justify-center p-8">
-      <h1 className="font-serif text-6xl font-bold text-[#c9a96e] mb-6 tracking-wide">
-        SCOUTS
-      </h1>
-      <p className="text-lg text-[#f8f0e3]/70 mb-2 text-center max-w-md font-serif">
-        An interactive narrative game based on the play
-      </p>
-      <p className="text-sm text-[#f8f0e3]/40 mb-10 text-center font-serif">
-        by Ryann Lynn Murphy
-      </p>
+    <main className="flex min-h-screen flex-col items-center justify-center bg-[#1a1714] text-[#f8f0e3] px-8">
+      <div className="text-center max-w-xl">
+        <h1 className="font-['Playfair_Display'] text-7xl font-bold text-[#c9a96e] mb-4 tracking-wide">
+          SCOUTS
+        </h1>
+        <p className="font-['Lora'] text-lg text-[#c9a96e] opacity-70 mb-12">
+          by Ryann Lynn Murphy
+        </p>
 
-      <div className="max-w-lg text-center mb-10 px-6 py-4 border border-[#333] rounded-lg bg-[#111]/50">
-        <p className="text-xs text-[#f8f0e3]/50 uppercase tracking-widest mb-3">
-          Content Warning
-        </p>
-        <p className="text-sm text-[#f8f0e3]/60 leading-relaxed font-serif">
-          Misogyny, homophobia, transphobia, f-slurs, depictions of animal violence,
-          depictions of violence, depictions of hazing, mentions of abuse, mentions of
-          negative body image, mentions of gender dysphoria, mentions of depression.
-        </p>
+        <div className="text-sm text-[#f8f0e3] opacity-50 mb-12 leading-relaxed text-left">
+          <p className="font-['Lora'] italic mb-2">Content Warning:</p>
+          <p className="font-['Lora']">
+            Misogyny, homophobia, transphobia, f-slurs, depictions of animal
+            violence, violence, murder, hazing, mentions of abuse, negative body
+            image, gender dysphoria, depression, intrusive thoughts.
+          </p>
+        </div>
+
+        <Link
+          href="/play"
+          className="inline-block font-['Playfair_Display'] text-xl text-[#c9a96e] border border-[#c9a96e] px-12 py-4 hover:bg-[#c9a96e] hover:text-[#1a1714] transition-all duration-300"
+        >
+          Begin
+        </Link>
       </div>
-
-      <Link
-        href="/play"
-        className="px-10 py-4 bg-[#c9a96e] text-[#1a1714] font-bold rounded-md hover:bg-[#b8955a] transition-colors text-lg font-serif tracking-wide"
-      >
-        Begin
-      </Link>
-
-      <p className="text-xs text-[#f8f0e3]/20 mt-16 font-serif">
-        Best experienced with headphones.
-      </p>
     </main>
   );
 }
