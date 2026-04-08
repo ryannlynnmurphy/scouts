@@ -1,16 +1,16 @@
 import { Character } from "./types";
 
 export const CHARACTERS: Record<string, Character> = {
-  simon: {
-    key: "simon",
-    name: "SIMON",
+  quinn: {
+    key: "quinn",
+    name: "QUINN",
     age: "12",
     color: "#d4a0d0",
     expressions: ["neutral", "scared", "defiant", "hurt", "tender", "shattered"],
   },
-  sam: {
-    key: "sam",
-    name: "SAM",
+  matt: {
+    key: "matt",
+    name: "MATT",
     age: "12",
     color: "#7eb8c9",
     expressions: ["neutral", "shy", "warm", "conflicted", "brave"],
