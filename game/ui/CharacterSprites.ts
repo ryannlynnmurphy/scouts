@@ -1,201 +1,109 @@
 import Phaser from "phaser";
+import { CHARACTERS } from "../data/characters";
+import { GAME_WIDTH, GAME_HEIGHT } from "../constants";
 
-// Predefined positions for different scene configurations
-const CAMPFIRE_POSITIONS: Record<string, { x: number; y: number }> = {
-  brent: { x: 480, y: 395 },   // Center front, feet on dirt
-  simon: { x: 270, y: 410 },   // Left side, slightly back, close to Sam
-  sam:   { x: 330, y: 408 },   // Right next to Simon
-  josh:  { x: 590, y: 405 },   // Right side
-  noah:  { x: 660, y: 408 },   // Right of Josh
-  lucas: { x: 730, y: 412 },   // Far right, slightly back
-};
+const GROUP_POSITIONS: { x: number; y: number }[] = [
+  { x: 120, y: 280 },
+  { x: 280, y: 290 },
+  { x: 440, y: 280 },
+  { x: 600, y: 290 },
+  { x: 720, y: 280 },
+  { x: 840, y: 290 },
+];
 
-const CLIFF_POSITIONS: Record<string, { x: number; y: number }> = {
-  simon: { x: 400, y: 420 },   // On the rock
-  sam:   { x: 500, y: 415 },   // Right beside, close
-};
+const DUO_POSITIONS: { x: number; y: number }[] = [
+  { x: 360, y: 280 },
+  { x: 600, y: 280 },
+];
 
-const MEADOW_POSITIONS: Record<string, { x: number; y: number }> = {
-  simon: { x: 420, y: 410 },   // In the flowers
-  sam:   { x: 510, y: 405 },   // Close by
-};
-
-const LAKE_POSITIONS: Record<string, { x: number; y: number }> = {
-  simon: { x: 440, y: 415 },   // On the rock
-  sam:   { x: 510, y: 412 },   // Right beside, intimate
-};
-
-const VOID_POSITIONS: Record<string, { x: number; y: number }> = {
-  _default: { x: 480, y: 380 }, // Centered in spotlight
-};
-
-const SCENE_POSITIONS: Record<string, Record<string, { x: number; y: number }>> = {
-  CampfireScene: CAMPFIRE_POSITIONS,
-  CliffScene:    CLIFF_POSITIONS,
-  MeadowScene:   MEADOW_POSITIONS,
-  LakeScene:     LAKE_POSITIONS,
-  VoidScene:     VOID_POSITIONS,
-};
-
-// Scale overrides per character
-const CHAR_SCALE: Record<string, number> = {
-  brent: 3.5,
-  simon: 2.8,
-};
-const DEFAULT_SCALE = 3;
-
-// Simon posture states keyed by fracture level
-interface PostureState {
-  scale: number;
-  yOffset: number;    // additional y offset in pixels (positive = lower / more hunched)
-  rotation: number;   // degrees
-}
-
-const SIMON_POSTURES: Record<"intact" | "cracking" | "fracturing" | "shattered", PostureState> = {
-  intact:     { scale: 2.8,  yOffset: 0,  rotation: 0  },
-  cracking:   { scale: 2.75, yOffset: 2,  rotation: 0  },
-  fracturing: { scale: 2.65, yOffset: 4,  rotation: -2 },
-  shattered:  { scale: 2.5,  yOffset: 8,  rotation: -4 },
-};
-
-function fractureToPostureKey(fracture: number): keyof typeof SIMON_POSTURES {
-  if (fracture <= 0.25) return "intact";
-  if (fracture <= 0.5)  return "cracking";
-  if (fracture <= 0.75) return "fracturing";
-  return "shattered";
-}
+const SOLO_POSITION = { x: GAME_WIDTH / 2, y: 280 };
 
 export class CharacterSprites {
   private scene: Phaser.Scene;
-  private sprites: Map<string, Phaser.GameObjects.Image> = new Map();
-  private idleTweens: Map<string, Phaser.Tweens.Tween> = new Map();
-  private activeSpeaker: string | null = null;
-  private sceneKey: string;
+  private sprites: Map<string, Phaser.GameObjects.Rectangle> = new Map();
+  private labels: Map<string, Phaser.GameObjects.Text> = new Map();
+  private breathingTweens: Phaser.Tweens.Tween[] = [];
+  private currentSpeaker: string | null = null;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    this.sceneKey = scene.scene.key;
   }
 
-  /** Place characters for the current scene */
-  setupForScene(characters: string[]): void {
-    this.clear();
-    const positions = SCENE_POSITIONS[this.sceneKey] || {};
+  setupForScene(characterKeys: string[]): void {
+    this.clearAll();
 
-    for (const charKey of characters) {
-      const spriteKey = `${charKey}-sprite`;
-      if (!this.scene.textures.exists(spriteKey)) {
-        console.warn(`CharacterSprites: texture not found for ${spriteKey}`);
-        continue;
-      }
+    const positions =
+      characterKeys.length === 1
+        ? [SOLO_POSITION]
+        : characterKeys.length === 2
+        ? DUO_POSITIONS
+        : GROUP_POSITIONS;
 
-      const pos =
-        positions[charKey] ||
-        (positions as Record<string, { x: number; y: number }>)["_default"] ||
-        { x: 480, y: 300 };
+    characterKeys.forEach((key, i) => {
+      const pos = positions[i % positions.length];
+      const char = CHARACTERS[key];
+      if (!char) return;
 
-      const scale = CHAR_SCALE[charKey] ?? DEFAULT_SCALE;
+      const color = Phaser.Display.Color.HexStringToColor(char.color).color;
+      const sprite = this.scene.add.rectangle(pos.x, pos.y, 48, 80, color, 0.9);
+      sprite.setDepth(10);
 
-      const sprite = this.scene.add
-        .image(pos.x, pos.y, spriteKey)
-        .setScale(scale)
-        .setDepth(10)
-        .setOrigin(0.5, 1); // anchor at feet
+      const label = this.scene.add.text(pos.x, pos.y - 52, char.name, {
+        fontFamily: "Lora, serif",
+        fontSize: "12px",
+        color: char.color,
+        align: "center",
+      });
+      label.setOrigin(0.5);
+      label.setDepth(11);
 
-      this.sprites.set(charKey, sprite);
+      this.sprites.set(key, sprite);
+      this.labels.set(key, label);
 
-      // Idle breathing tween — offset by random phase so they don't all sway in sync
       const tween = this.scene.tweens.add({
-        targets: sprite,
-        y: pos.y - 2,
-        duration: 1500 + Math.random() * 500,
+        targets: [sprite, label],
+        y: "-=3",
+        duration: 2000 + Math.random() * 1000,
         yoyo: true,
         repeat: -1,
         ease: "Sine.easeInOut",
-        delay: Math.random() * 800,
+        delay: Math.random() * 1000,
       });
-      this.idleTweens.set(charKey, tween);
-    }
+      this.breathingTweens.push(tween);
+    });
   }
 
-  /** Highlight the speaking character; dim the rest. Pass null to reset all. */
   setSpeaker(charKey: string | null): void {
-    const key = charKey?.toLowerCase() ?? null;
-
-    this.sprites.forEach((sprite, k) => {
-      sprite.setAlpha(key && k !== key ? 0.5 : 1);
-    });
-
-    if (key) {
-      const speaker = this.sprites.get(key);
-      if (speaker) {
-        // Small bounce to draw attention
+    this.currentSpeaker = charKey;
+    this.sprites.forEach((sprite, key) => {
+      const label = this.labels.get(key);
+      if (key === charKey) {
+        sprite.setAlpha(1);
+        if (label) label.setAlpha(1);
         this.scene.tweens.add({
-          targets: speaker,
-          scaleX: speaker.scaleX * 1.05,
-          scaleY: speaker.scaleY * 1.05,
-          duration: 120,
+          targets: [sprite, label].filter(Boolean),
+          y: "-=6",
+          duration: 150,
           yoyo: true,
-          ease: "Sine.easeOut",
+          ease: "Quad.easeOut",
         });
+      } else {
+        sprite.setAlpha(charKey ? 0.4 : 0.9);
+        if (label) label.setAlpha(charKey ? 0.4 : 0.9);
       }
-    }
-
-    this.activeSpeaker = key;
-  }
-
-  /**
-   * Apply posture transforms to Simon's sprite based on the current fracture level.
-   * Called by FractureManager whenever fracture changes.
-   */
-  updateSimonPosture(fracture: number): void {
-    const simon = this.sprites.get("simon");
-    if (!simon) return;
-
-    const key = fractureToPostureKey(fracture);
-    const posture = SIMON_POSTURES[key];
-
-    // Determine Simon's base Y from the scene positions
-    const positions = SCENE_POSITIONS[this.sceneKey] || {};
-    const basePos = positions["simon"] || { x: 480, y: 300 };
-
-    simon.setScale(posture.scale);
-    simon.setY(basePos.y + posture.yOffset);
-    simon.setAngle(posture.rotation);
-  }
-
-  /**
-   * Smoothly tween Simon back to the Intact posture (used during Gay Shit scenes).
-   */
-  resetSimonPosture(): void {
-    const simon = this.sprites.get("simon");
-    if (!simon) return;
-
-    const positions = SCENE_POSITIONS[this.sceneKey] || {};
-    const basePos = positions["simon"] || { x: 480, y: 300 };
-    const intact = SIMON_POSTURES.intact;
-
-    this.scene.tweens.add({
-      targets: simon,
-      scaleX: intact.scale,
-      scaleY: intact.scale,
-      y: basePos.y + intact.yOffset,
-      angle: intact.rotation,
-      duration: 2000,
-      ease: "Sine.easeOut",
     });
   }
 
-  /** Remove all sprites from the scene */
-  clear(): void {
-    this.idleTweens.forEach((t) => t.destroy());
-    this.idleTweens.clear();
+  private clearAll(): void {
+    this.breathingTweens.forEach((t) => t.destroy());
+    this.breathingTweens = [];
     this.sprites.forEach((s) => s.destroy());
     this.sprites.clear();
-    this.activeSpeaker = null;
+    this.labels.forEach((l) => l.destroy());
+    this.labels.clear();
   }
 
   destroy(): void {
-    this.clear();
+    this.clearAll();
   }
 }

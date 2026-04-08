@@ -1,50 +1,45 @@
 import Phaser from "phaser";
 import { GAME_WIDTH, GAME_HEIGHT } from "../constants";
-import { audioManager } from "../systems/AudioManager";
 
 export class TransitionOverlay {
   private scene: Phaser.Scene;
-  private overlay: Phaser.GameObjects.Graphics;
+  private overlay: Phaser.GameObjects.Rectangle;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
-    this.overlay = scene.add.graphics().setDepth(500);
-    this.overlay.fillStyle(0x000000);
-    this.overlay.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
-    this.overlay.setAlpha(0);
+    this.overlay = scene.add.rectangle(
+      GAME_WIDTH / 2, GAME_HEIGHT / 2,
+      GAME_WIDTH, GAME_HEIGHT,
+      0x000000, 1
+    );
+    this.overlay.setDepth(1000);
+    this.overlay.setScrollFactor(0);
   }
 
-  fadeOut(duration: number = 1000): Promise<void> {
-    audioManager.playTransition();
-    return new Promise((resolve) => {
-      this.scene.tweens.add({
-        targets: this.overlay,
-        alpha: 1,
-        duration,
-        ease: "Power2",
-        onComplete: () => resolve(),
-      });
-    });
-  }
-
-  fadeIn(duration: number = 1000): Promise<void> {
+  fadeIn(duration: number = 800): Promise<void> {
     return new Promise((resolve) => {
       this.overlay.setAlpha(1);
       this.scene.tweens.add({
         targets: this.overlay,
         alpha: 0,
         duration,
-        ease: "Power2",
+        ease: "Sine.easeInOut",
         onComplete: () => resolve(),
       });
     });
   }
 
-  async transition(callback: () => void, holdMs: number = 500): Promise<void> {
-    await this.fadeOut();
-    await new Promise((r) => this.scene.time.delayedCall(holdMs, r));
-    callback();
-    await this.fadeIn();
+  fadeOut(duration: number = 800): Promise<void> {
+    return new Promise((resolve) => {
+      this.overlay.setAlpha(0);
+      this.scene.tweens.add({
+        targets: this.overlay,
+        alpha: 1,
+        duration,
+        ease: "Sine.easeInOut",
+        onComplete: () => resolve(),
+      });
+    });
   }
 
   destroy(): void {
